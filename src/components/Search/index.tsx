@@ -6,7 +6,7 @@ import {
   horizontalScale,
   scaleFontSize,
   verticalScale,
-} from '../../styles/scaling';
+} from '@/styles/scaling';
 
 interface Props {
   onSearch?: (val: string) => void;

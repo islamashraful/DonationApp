@@ -1,7 +1,7 @@
+import Search from '@/components/Search';
+import SingleDonationItem from '@/components/SingleDonationItem';
 import React from 'react';
 import { StyleSheet, SafeAreaView, View } from 'react-native';
-import Search from '../../components/Search';
-import SingleDonationItem from '../../components/SingleDonationItem';
 
 const Home = () => {
   return (

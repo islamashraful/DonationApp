@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 import Badge from '../Badge';
 import Header from '../Header';
-import { horizontalScale, verticalScale } from '../../styles/scaling';
+import { horizontalScale, verticalScale } from '@/styles/scaling';
 
 interface Props {
   uri: string;

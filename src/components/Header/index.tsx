@@ -1,6 +1,6 @@
+import { scaleFontSize } from '@/styles/scaling';
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import { scaleFontSize } from '../../styles/scaling';
 
 interface Props {
   title: string;

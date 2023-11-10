@@ -1,6 +1,6 @@
+import { horizontalScale, scaleFontSize } from '@/styles/scaling';
 import React from 'react';
 import { Pressable, StyleSheet, Text } from 'react-native';
-import { horizontalScale, scaleFontSize } from '../../styles/scaling';
 
 interface Props {
   title: string;
