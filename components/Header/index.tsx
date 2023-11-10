@@ -5,9 +5,10 @@ import { scaleFontSize } from '../../styles/scaling';
 interface Props {
   title: string;
   type: 'large' | 'medium' | 'small';
+  color?: string;
 }
 
-const Header = ({ title, type }: Props) => {
+const Header = ({ title, type, color }: Props) => {
   const styleToApply = () => {
     switch (type) {
       case 'large':
@@ -23,7 +24,7 @@ const Header = ({ title, type }: Props) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styleToApply()}>{title}</Text>
+      <Text style={[styleToApply(), { color }]}>{title}</Text>
     </View>
   );
 };
