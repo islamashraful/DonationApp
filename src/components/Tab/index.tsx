@@ -28,7 +28,7 @@ const Tab = ({ title, isInactive, onPress }: Props) => {
         isInactive ? styles.inactiveTab : undefined,
         tabWidth,
       ]}
-      disabled={isInactive}
+      // disabled={isInactive}
       onPress={onPress}>
       <Text
         ref={textRef}

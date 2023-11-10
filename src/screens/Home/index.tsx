@@ -9,21 +9,22 @@ import {
   Text,
   ScrollView,
   Image,
+  FlatList,
 } from 'react-native';
-import { useSelector } from 'react-redux';
-
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from 'redux/store';
 import {
   horizontalScale,
   scaleFontSize,
   verticalScale,
 } from '@/styles/scaling';
+import Tab from '@/components/Tab';
+import { updateSelectedCategoryId } from '../../../redux/reducers/categories';
 
 const Home = () => {
   const user = useSelector((state: RootState) => state.user);
   const categories = useSelector((state: RootState) => state.categories);
-
-  console.log(categories);
+  const disapatch = useDispatch();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -54,6 +55,31 @@ const Home = () => {
             style={styles.highlightedImage}
           />
         </Pressable>
+
+        <View style={styles.categoryHeader}>
+          <Header title="Select Category" type="medium" />
+        </View>
+        <View style={styles.categories}>
+          <FlatList
+            data={categories.categories}
+            keyExtractor={item => item.categoryId.toString()}
+            renderItem={({ item }) => (
+              <View style={styles.categoryItem}>
+                <Tab
+                  title={item.name}
+                  isInactive={item.categoryId !== categories.selectedCategoryId}
+                  onPress={() => {
+                    disapatch(
+                      updateSelectedCategoryId({ categoryId: item.categoryId }),
+                    );
+                  }}
+                />
+              </View>
+            )}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+          />
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -95,6 +121,17 @@ const styles = StyleSheet.create({
   },
   highlightedImageContainer: {
     marginHorizontal: horizontalScale(24),
+  },
+  categories: {
+    marginLeft: horizontalScale(24),
+  },
+  categoryItem: {
+    marginRight: horizontalScale(10),
+  },
+  categoryHeader: {
+    marginHorizontal: horizontalScale(24),
+    marginBottom: verticalScale(16),
+    marginTop: verticalScale(6),
   },
 });
 
