@@ -21,6 +21,9 @@ import {
 
 const Home = () => {
   const user = useSelector((state: RootState) => state.user);
+  const categories = useSelector((state: RootState) => state.categories);
+
+  console.log(categories);
 
   return (
     <SafeAreaView style={styles.container}>
