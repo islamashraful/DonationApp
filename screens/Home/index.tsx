@@ -4,6 +4,8 @@ import Header from '../../components/Header';
 import Button from '../../components/Button';
 import Tab from '../../components/Tab';
 import Badge from '../../components/Badge';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 const Home = () => {
   return (
@@ -16,6 +18,7 @@ const Home = () => {
       <Tab title="Highlight" />
       <Tab title="Save" isInactive />
       <Badge title="Environment" />
+      <FontAwesomeIcon icon={faSearch} />
     </SafeAreaView>
   );
 };
