@@ -3,6 +3,7 @@ import { StyleSheet, SafeAreaView } from 'react-native';
 import Header from '../../components/Header';
 import Button from '../../components/Button';
 import Tab from '../../components/Tab';
+import Badge from '../../components/Badge';
 
 const Home = () => {
   return (
@@ -14,6 +15,7 @@ const Home = () => {
       <Button title="Save" />
       <Tab title="Highlight" />
       <Tab title="Save" isInactive />
+      <Badge title="Environment" />
     </SafeAreaView>
   );
 };
