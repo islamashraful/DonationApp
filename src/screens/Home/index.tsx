@@ -1,6 +1,6 @@
 import Header from '@/components/Header';
 import Search from '@/components/Search';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   SafeAreaView,
@@ -19,12 +19,39 @@ import {
   verticalScale,
 } from '@/styles/scaling';
 import Tab from '@/components/Tab';
-import { updateSelectedCategoryId } from '../../../redux/reducers/categories';
+import {
+  Category,
+  updateSelectedCategoryId,
+} from '../../../redux/reducers/categories';
 
 const Home = () => {
   const user = useSelector((state: RootState) => state.user);
   const categories = useSelector((state: RootState) => state.categories);
   const disapatch = useDispatch();
+
+  const [categoryPage, setCategoryPage] = useState(1);
+  const [categoryList, setCategoryList] = useState<Category[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const categoryPageSize = 4;
+
+  const pagination = (db: Category[], pageNumber: number, pageSize: number) => {
+    const startIndex = (pageNumber - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+    if (startIndex >= db.length) {
+      return [];
+    }
+    return db.slice(startIndex, endIndex);
+  };
+
+  useEffect(() => {
+    setIsLoading(true);
+    setCategoryList(
+      pagination(categories.categories, categoryPage, categoryPageSize),
+    );
+    setCategoryPage(prevState => prevState + 1);
+    setIsLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -61,7 +88,24 @@ const Home = () => {
         </View>
         <View style={styles.categories}>
           <FlatList
-            data={categories.categories}
+            onEndReachedThreshold={0.5}
+            onEndReached={() => {
+              if (isLoading) {
+                return;
+              }
+              setIsLoading(true);
+              const newData = pagination(
+                categories.categories,
+                categoryPage,
+                categoryPageSize,
+              );
+              if (newData.length > 0) {
+                setCategoryList(prev => [...prev, ...newData]);
+                setCategoryPage(prev => prev + 1);
+              }
+              setIsLoading(false);
+            }}
+            data={categoryList}
             keyExtractor={item => item.categoryId.toString()}
             renderItem={({ item }) => (
               <View style={styles.categoryItem}>

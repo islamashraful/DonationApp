@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-interface Category {
+export interface Category {
   categoryId: number;
   name: string;
 }
