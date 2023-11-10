@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, SafeAreaView } from 'react-native';
 import Header from '../../components/Header';
+import Button from '../../components/Button';
 
 const Home = () => {
   return (
@@ -8,6 +9,8 @@ const Home = () => {
       <Header title="Ashraful" type="large" />
       <Header title="Ashraful" type="medium" />
       <Header title="Ashraful" type="small" />
+      <Button title="Save" disabled />
+      <Button title="Save" />
     </SafeAreaView>
   );
 };
