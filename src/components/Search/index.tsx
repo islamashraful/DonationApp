@@ -9,10 +9,11 @@ import {
 } from '@/styles/scaling';
 
 interface Props {
+  placeholder?: string;
   onSearch?: (val: string) => void;
 }
 
-const Search = ({ onSearch }: Props) => {
+const Search = ({ placeholder = 'Search', onSearch }: Props) => {
   const [search, setSearch] = useState('');
   const textInputRef = useRef<TextInput>(null);
 
@@ -35,6 +36,7 @@ const Search = ({ onSearch }: Props) => {
       <TextInput
         ref={textInputRef}
         style={styles.textInput}
+        placeholder={placeholder}
         value={search}
         onChangeText={handleSearch}
       />
