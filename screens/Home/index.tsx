@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, SafeAreaView } from 'react-native';
 import Header from '../../components/Header';
 import Button from '../../components/Button';
+import Tab from '../../components/Tab';
 
 const Home = () => {
   return (
@@ -11,6 +12,8 @@ const Home = () => {
       <Header title="Ashraful" type="small" />
       <Button title="Save" disabled />
       <Button title="Save" />
+      <Tab title="Highlight" />
+      <Tab title="Save" isInactive />
     </SafeAreaView>
   );
 };
