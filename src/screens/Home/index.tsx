@@ -1,16 +1,19 @@
+import Header from '@/components/Header';
 import Search from '@/components/Search';
 import SingleDonationItem from '@/components/SingleDonationItem';
 import React from 'react';
 import { StyleSheet, SafeAreaView, View } from 'react-native';
+import { useSelector } from 'react-redux';
+import { RootState } from 'redux/store';
 
 const Home = () => {
+  const user = useSelector((state: RootState) => state.user);
+
   return (
     <SafeAreaView style={styles.container}>
+      <Header title={user.firstName + ' ' + user.lastName} type="large" />
       <Search onSearch={val => console.log(val)} />
-      <View
-        style={{
-          flexDirection: 'row',
-        }}>
+      <View>
         <SingleDonationItem
           uri="https://picsum.photos/200/300"
           donationTitle="Title"
