@@ -23,16 +23,21 @@ import {
   Category,
   updateSelectedCategoryId,
 } from '../../../redux/reducers/categories';
+import { Donatation } from '../../../redux/reducers/donations';
+import SingleDonationItem from '@/components/SingleDonationItem';
 
 const Home = () => {
   const user = useSelector((state: RootState) => state.user);
   const categories = useSelector((state: RootState) => state.categories);
+  const donations = useSelector((state: RootState) => state.donations);
   const disapatch = useDispatch();
 
   const [categoryPage, setCategoryPage] = useState(1);
   const [categoryList, setCategoryList] = useState<Category[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const categoryPageSize = 4;
+
+  const [donationItems, setDonationItems] = useState<Donatation[]>();
 
   const pagination = (db: Category[], pageNumber: number, pageSize: number) => {
     const startIndex = (pageNumber - 1) * pageSize;
@@ -52,6 +57,14 @@ const Home = () => {
     setIsLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    const items = donations.items.filter(
+      item => item.categoryIds.includes(categories.selectedCategoryId), // TODO: Refactor O(n^2) => make it O(n)
+    );
+    setDonationItems(items);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [categories.selectedCategoryId]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -124,6 +137,27 @@ const Home = () => {
             showsHorizontalScrollIndicator={false}
           />
         </View>
+
+        {donationItems?.length ? (
+          <View style={styles.donationItemsContainer}>
+            {donationItems.map(item => (
+              <View key={item.donationItemId} style={styles.singleDonationItem}>
+                <SingleDonationItem
+                  uri={item.image}
+                  badgeTitle={
+                    categories.categories.filter(
+                      // TODO: Refactor O(n^2) => Simplify categories by key-values pairs
+                      val => val.categoryId === categories.selectedCategoryId,
+                    )[0].name
+                  }
+                  donationTitle={item.name}
+                  price={parseFloat(item.price)}
+                  onPress={() => {}}
+                />
+              </View>
+            ))}
+          </View>
+        ) : null}
       </ScrollView>
     </SafeAreaView>
   );
@@ -176,6 +210,17 @@ const styles = StyleSheet.create({
     marginHorizontal: horizontalScale(24),
     marginBottom: verticalScale(16),
     marginTop: verticalScale(6),
+  },
+  donationItemsContainer: {
+    marginHorizontal: horizontalScale(24),
+    marginTop: verticalScale(20),
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+  },
+  singleDonationItem: {
+    maxWidth: '49%',
+    marginBottom: verticalScale(23),
   },
 });
 

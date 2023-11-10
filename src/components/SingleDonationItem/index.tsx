@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image, Pressable } from 'react-native';
 import Badge from '../Badge';
 import Header from '../Header';
 import { horizontalScale, verticalScale } from '@/styles/scaling';
@@ -9,6 +9,7 @@ interface Props {
   badgeTitle: string;
   donationTitle: string;
   price: number;
+  onPress?: () => void;
 }
 
 const SingleDonationItem = ({
@@ -16,9 +17,10 @@ const SingleDonationItem = ({
   badgeTitle,
   donationTitle,
   price,
+  onPress,
 }: Props) => {
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container} onPress={onPress}>
       <View>
         <View style={styles.badge}>
           <Badge title={badgeTitle} />
@@ -26,19 +28,24 @@ const SingleDonationItem = ({
         <Image source={{ uri }} style={styles.img} />
       </View>
       <View style={styles.donationInformation}>
-        <Header title={donationTitle} type="small" color="#0a043c" />
+        <Header
+          title={donationTitle}
+          type="small"
+          color="#0a043c"
+          numberOfLines={1}
+        />
         <View style={styles.price}>
           <Header title={`$${price.toFixed(2)}`} type="small" color="#156CF7" />
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
   container: {},
   img: {
-    width: horizontalScale(155),
+    width: horizontalScale(140),
     height: verticalScale(170),
     borderRadius: 20,
   },

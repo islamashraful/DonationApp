@@ -6,9 +6,10 @@ interface Props {
   title: string;
   type: 'large' | 'medium' | 'small';
   color?: string;
+  numberOfLines?: number;
 }
 
-const Header = ({ title, type, color }: Props) => {
+const Header = ({ title, type, color, numberOfLines }: Props) => {
   const styleToApply = () => {
     switch (type) {
       case 'large':
@@ -24,7 +25,9 @@ const Header = ({ title, type, color }: Props) => {
 
   return (
     <View style={styles.container}>
-      <Text style={[styleToApply(), { color }]}>{title}</Text>
+      <Text style={[styleToApply(), { color }]} numberOfLines={numberOfLines}>
+        {title}
+      </Text>
     </View>
   );
 };
