@@ -1,8 +1,8 @@
 import React from 'react';
-import MainNaivgation from './navigation/MainNavigation';
+import MainNaivgation from './src/navigation/MainNavigation';
 import { NavigationContainer } from '@react-navigation/native';
 import { Provider } from 'react-redux';
-import store, { persistor } from './redux/store';
+import store, { persistor } from './src/redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
 
 const App = () => {

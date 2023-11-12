@@ -12,10 +12,12 @@ export interface Donatation {
 export interface DonationsState {
   items: Donatation[];
   selectedDonationId: null | number;
+  selectedDontationInformation: Donatation | null;
 }
 
 const initialState: DonationsState = {
   selectedDonationId: null,
+  selectedDontationInformation: null,
   items: [
     {
       name: 'Solar-powered lantern',
@@ -224,11 +226,17 @@ const donationsSlice = createSlice({
   name: 'donations',
   initialState,
   reducers: {
-    updateSelectedCategoryId: (
+    updateSelectedDonationId: (
       state,
       action: PayloadAction<{ donationId: number }>,
     ) => {
       state.selectedDonationId = action.payload.donationId;
+      const selectedDontationInformation = state.items.find(
+        item => item.donationItemId === action.payload.donationId,
+      );
+      if (selectedDontationInformation) {
+        state.selectedDontationInformation = selectedDontationInformation;
+      }
     },
     resetDonations: () => {
       return initialState;
@@ -236,6 +244,6 @@ const donationsSlice = createSlice({
   },
 });
 
-export const { updateSelectedCategoryId, resetDonations } =
+export const { updateSelectedDonationId, resetDonations } =
   donationsSlice.actions;
 export default donationsSlice.reducer;

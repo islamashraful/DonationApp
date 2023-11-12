@@ -12,7 +12,7 @@ import {
   FlatList,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from 'redux/store';
+import { RootState } from '@/redux/store';
 import {
   horizontalScale,
   scaleFontSize,
@@ -22,11 +22,18 @@ import Tab from '@/components/Tab';
 import {
   Category,
   updateSelectedCategoryId,
-} from '../../../redux/reducers/categories';
-import { Donatation } from '../../../redux/reducers/donations';
+} from '../../redux/reducers/categories';
+import {
+  Donatation,
+  updateSelectedDonationId,
+} from '../../redux/reducers/donations';
 import SingleDonationItem from '@/components/SingleDonationItem';
+import { MainStackParamList } from '@/navigation/routes';
+import { StackScreenProps } from '@react-navigation/stack';
 
-const Home = () => {
+type Props = StackScreenProps<MainStackParamList, 'Home'>;
+
+const Home = ({ navigation: { navigate } }: Props) => {
   const user = useSelector((state: RootState) => state.user);
   const categories = useSelector((state: RootState) => state.categories);
   const donations = useSelector((state: RootState) => state.donations);
@@ -152,7 +159,14 @@ const Home = () => {
                   }
                   donationTitle={item.name}
                   price={parseFloat(item.price)}
-                  onPress={() => {}}
+                  onPress={() => {
+                    disapatch(
+                      updateSelectedDonationId({
+                        donationId: item.donationItemId,
+                      }),
+                    );
+                    navigate('SingleDonationItem');
+                  }}
                 />
               </View>
             ))}
