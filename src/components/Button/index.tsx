@@ -1,18 +1,23 @@
 import { horizontalScale, scaleFontSize } from '@/styles/scaling';
 import React from 'react';
-import { Pressable, StyleSheet, Text } from 'react-native';
+import { ActivityIndicator, Pressable, StyleSheet, Text } from 'react-native';
 
 interface Props {
   title: string;
   disabled?: boolean;
+  loading?: boolean;
   onPress?: () => void;
 }
 
-const Button = ({ title, disabled, onPress }: Props) => (
+const Button = ({ title, disabled, loading, onPress }: Props) => (
   <Pressable
-    style={[styles.container, disabled ? styles.disabled : undefined]}
-    disabled={disabled}
+    style={[
+      styles.container,
+      disabled || loading ? styles.disabled : undefined,
+    ]}
+    disabled={disabled || loading}
     onPress={onPress}>
+    {loading && <ActivityIndicator color="#27313b" style={styles.activity} />}
     <Text style={styles.title}>{title}</Text>
   </Pressable>
 );
@@ -24,6 +29,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: horizontalScale(50),
+    flexDirection: 'row',
   },
   title: {
     fontFamily: 'Inter',
@@ -34,6 +40,9 @@ const styles = StyleSheet.create({
   },
   disabled: {
     opacity: 0.5,
+  },
+  activity: {
+    marginRight: horizontalScale(5),
   },
 });
 

@@ -1,18 +1,27 @@
+import { createUser } from '@/api/user';
 import BackButton from '@/components/BackButton';
 import Button from '@/components/Button';
 import Header from '@/components/Header';
 import Input from '@/components/Input';
-import { horizontalScale, verticalScale } from '@/styles/scaling';
-import { useNavigation } from '@react-navigation/native';
+import { MainStackParamList } from '@/navigation/routes';
+import {
+  horizontalScale,
+  scaleFontSize,
+  verticalScale,
+} from '@/styles/scaling';
+import { StackScreenProps } from '@react-navigation/stack';
 import React, { useState } from 'react';
-import { View, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
+import { View, StyleSheet, SafeAreaView, ScrollView, Text } from 'react-native';
 
-const Registration = () => {
+type Props = StackScreenProps<MainStackParamList, 'Login'>;
+
+const Registration = ({ navigation }: Props) => {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const navigation = useNavigation();
+  const [success, setSuccess] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
@@ -49,8 +58,27 @@ const Registration = () => {
           />
         </View>
 
+        {error ? <Text style={styles.error}>{error}</Text> : null}
+        {success ? <Text style={styles.success}>{success}</Text> : null}
+
         <View style={styles.spacing}>
-          <Button title="Login" />
+          <Button
+            disabled={!fullName || !email || !password}
+            loading={loading}
+            title="Registration"
+            onPress={async () => {
+              setLoading(true);
+              let user = await createUser(fullName, email, password);
+              setLoading(false);
+              if (user?.error) {
+                setError(user.error);
+              } else {
+                setError('');
+                setSuccess('You have successfully registered!');
+                setTimeout(() => navigation.navigate('Login'), 2000);
+              }
+            }}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -73,6 +101,18 @@ const styles = StyleSheet.create({
   backBtn: {
     marginLeft: horizontalScale(14),
     marginTop: verticalScale(7),
+  },
+  error: {
+    fontFamily: 'Inter',
+    fontSize: scaleFontSize(16),
+    color: '#ff0000',
+    marginBottom: verticalScale(7),
+  },
+  success: {
+    fontFamily: 'Inter',
+    fontSize: scaleFontSize(16),
+    color: '#28a745',
+    marginBottom: verticalScale(7),
   },
 });
 
