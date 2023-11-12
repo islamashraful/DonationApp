@@ -1,4 +1,4 @@
 export type MainStackParamList = {
   Home: undefined;
-  SingleDonationItem: undefined;
+  SingleDonationItem: { badgeTitle: string };
 };

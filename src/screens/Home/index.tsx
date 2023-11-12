@@ -147,29 +147,35 @@ const Home = ({ navigation: { navigate } }: Props) => {
 
         {donationItems?.length ? (
           <View style={styles.donationItemsContainer}>
-            {donationItems.map(item => (
-              <View key={item.donationItemId} style={styles.singleDonationItem}>
-                <SingleDonationItem
-                  uri={item.image}
-                  badgeTitle={
-                    categories.categories.filter(
-                      // TODO: Refactor O(n^2) => Simplify categories by key-values pairs
-                      val => val.categoryId === categories.selectedCategoryId,
-                    )[0].name
-                  }
-                  donationTitle={item.name}
-                  price={parseFloat(item.price)}
-                  onPress={() => {
-                    disapatch(
-                      updateSelectedDonationId({
-                        donationId: item.donationItemId,
-                      }),
-                    );
-                    navigate('SingleDonationItem');
-                  }}
-                />
-              </View>
-            ))}
+            {donationItems.map(item => {
+              const badgeTitle = categories.categories.find(
+                // TODO: Refactor O(n^2) => Simplify categories by key-values pairs
+                val => val.categoryId === categories.selectedCategoryId,
+              )?.name;
+
+              return (
+                <View
+                  key={item.donationItemId}
+                  style={styles.singleDonationItem}>
+                  <SingleDonationItem
+                    uri={item.image}
+                    badgeTitle={badgeTitle || ''}
+                    donationTitle={item.name}
+                    price={parseFloat(item.price)}
+                    onPress={() => {
+                      disapatch(
+                        updateSelectedDonationId({
+                          donationId: item.donationItemId,
+                        }),
+                      );
+                      navigate('SingleDonationItem', {
+                        badgeTitle: badgeTitle || '',
+                      });
+                    }}
+                  />
+                </View>
+              );
+            })}
           </View>
         ) : null}
       </ScrollView>
