@@ -1,31 +1,36 @@
+import BackButton from '@/components/BackButton';
 import Button from '@/components/Button';
 import Header from '@/components/Header';
 import Input from '@/components/Input';
-import { MainStackParamList } from '@/navigation/routes';
 import { horizontalScale, verticalScale } from '@/styles/scaling';
-import { StackScreenProps } from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import {
-  View,
-  StyleSheet,
-  SafeAreaView,
-  ScrollView,
-  Pressable,
-} from 'react-native';
+import { View, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 
-type Props = StackScreenProps<MainStackParamList, 'Login'>;
-
-const Login = ({ navigation: { navigate } }: Props) => {
+const Registration = () => {
+  const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const navigation = useNavigation();
+
   return (
     <SafeAreaView style={styles.safeAreaView}>
+      <View style={styles.backBtn}>
+        <BackButton onPress={() => navigation.goBack()} />
+      </View>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollView}>
         <View style={styles.spacing}>
-          <Header title="Welcome back" type="large" />
+          <Header title="Hello, and Welcome!" type="large" />
+        </View>
+        <View style={styles.spacing}>
+          <Input
+            label="First & Last Name"
+            placeholder="Enter your full name"
+            onChangeText={val => setFullName(val)}
+          />
         </View>
         <View style={styles.spacing}>
           <Input
@@ -47,12 +52,6 @@ const Login = ({ navigation: { navigate } }: Props) => {
         <View style={styles.spacing}>
           <Button title="Login" />
         </View>
-
-        <Pressable
-          style={styles.registrationBtn}
-          onPress={() => navigate('Registration')}>
-          <Header title="Don't have an account?" type="small" color="#156cf7" />
-        </Pressable>
       </ScrollView>
     </SafeAreaView>
   );
@@ -71,9 +70,10 @@ const styles = StyleSheet.create({
   spacing: {
     marginBottom: verticalScale(24),
   },
-  registrationBtn: {
-    alignItems: 'center',
+  backBtn: {
+    marginLeft: horizontalScale(14),
+    marginTop: verticalScale(7),
   },
 });
 
-export default Login;
+export default Registration;
