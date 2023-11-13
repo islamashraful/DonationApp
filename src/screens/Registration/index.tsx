@@ -3,7 +3,7 @@ import BackButton from '@/components/BackButton';
 import Button from '@/components/Button';
 import Header from '@/components/Header';
 import Input from '@/components/Input';
-import { MainStackParamList } from '@/navigation/routes';
+import { AuthStackParamList } from '@/navigation/routes';
 import {
   horizontalScale,
   scaleFontSize,
@@ -13,7 +13,7 @@ import { StackScreenProps } from '@react-navigation/stack';
 import React, { useState } from 'react';
 import { View, StyleSheet, SafeAreaView, ScrollView, Text } from 'react-native';
 
-type Props = StackScreenProps<MainStackParamList, 'Registration'>;
+type Props = StackScreenProps<AuthStackParamList, 'Registration'>;
 
 const Registration = ({ navigation }: Props) => {
   const [fullName, setFullName] = useState('');

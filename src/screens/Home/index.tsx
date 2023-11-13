@@ -28,10 +28,10 @@ import {
   updateSelectedDonationId,
 } from '../../redux/reducers/donations';
 import SingleDonationItem from '@/components/SingleDonationItem';
-import { MainStackParamList } from '@/navigation/routes';
+import { AppStackParamList } from '@/navigation/routes';
 import { StackScreenProps } from '@react-navigation/stack';
 
-type Props = StackScreenProps<MainStackParamList, 'Home'>;
+type Props = StackScreenProps<AppStackParamList, 'Home'>;
 
 const Home = ({ navigation: { navigate } }: Props) => {
   const user = useSelector((state: RootState) => state.user);

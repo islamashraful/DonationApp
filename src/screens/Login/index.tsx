@@ -2,7 +2,7 @@ import { loginUser } from '@/api/user';
 import Button from '@/components/Button';
 import Header from '@/components/Header';
 import Input from '@/components/Input';
-import { MainStackParamList } from '@/navigation/routes';
+import { AuthStackParamList } from '@/navigation/routes';
 import { logIn } from '@/redux/reducers/user';
 import {
   horizontalScale,
@@ -21,7 +21,7 @@ import {
 } from 'react-native';
 import { useDispatch } from 'react-redux';
 
-type Props = StackScreenProps<MainStackParamList, 'Login'>;
+type Props = StackScreenProps<AuthStackParamList, 'Login'>;
 
 const Login = ({ navigation: { navigate } }: Props) => {
   const [email, setEmail] = useState('');
@@ -72,7 +72,6 @@ const Login = ({ navigation: { navigate } }: Props) => {
               } else {
                 dispatch(logIn(response.data));
                 setError('');
-                navigate('Home');
               }
             }}
           />

@@ -2,7 +2,7 @@ import BackButton from '@/components/BackButton';
 import Badge from '@/components/Badge';
 import Button from '@/components/Button';
 import Header from '@/components/Header';
-import { MainStackParamList } from '@/navigation/routes';
+import { AppStackParamList } from '@/navigation/routes';
 import { RootState } from '@/redux/store';
 import {
   horizontalScale,
@@ -21,7 +21,7 @@ import {
 } from 'react-native';
 import { useSelector } from 'react-redux';
 
-type Props = StackScreenProps<MainStackParamList, 'SingleDonationItem'>;
+type Props = StackScreenProps<AppStackParamList, 'SingleDonationItem'>;
 
 const SingleDonationItem = ({ navigation, route }: Props) => {
   const selectedDontationInformation = useSelector(
