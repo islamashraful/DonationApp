@@ -3,6 +3,7 @@ import Button from '@/components/Button';
 import Header from '@/components/Header';
 import Input from '@/components/Input';
 import { MainStackParamList } from '@/navigation/routes';
+import { logIn } from '@/redux/reducers/user';
 import {
   horizontalScale,
   scaleFontSize,
@@ -18,6 +19,7 @@ import {
   Pressable,
   Text,
 } from 'react-native';
+import { useDispatch } from 'react-redux';
 
 type Props = StackScreenProps<MainStackParamList, 'Login'>;
 
@@ -26,6 +28,8 @@ const Login = ({ navigation: { navigate } }: Props) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const dispatch = useDispatch();
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
@@ -63,9 +67,10 @@ const Login = ({ navigation: { navigate } }: Props) => {
               setLoading(true);
               const response = await loginUser(email, password);
               setLoading(false);
-              if (!response.success) {
+              if (!response.success || !response.data) {
                 setError(response.error);
               } else {
+                dispatch(logIn(response.data));
                 setError('');
                 navigate('Home');
               }

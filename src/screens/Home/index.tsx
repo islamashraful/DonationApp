@@ -81,7 +81,7 @@ const Home = ({ navigation: { navigate } }: Props) => {
             <Text style={styles.headerIntroText}>Hello, </Text>
             <View style={styles.username}>
               <Header
-                title={`${user.firstName} ${user.lastName[0]}. 👋`}
+                title={`${user.userData?.user.displayName} 👋`}
                 type="large"
               />
             </View>

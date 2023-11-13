@@ -34,6 +34,7 @@ export const loginUser = async (email: string, password: string) => {
     return {
       success: true,
       token,
+      data: response,
     };
   } catch (error: any) {
     return {

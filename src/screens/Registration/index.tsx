@@ -13,7 +13,7 @@ import { StackScreenProps } from '@react-navigation/stack';
 import React, { useState } from 'react';
 import { View, StyleSheet, SafeAreaView, ScrollView, Text } from 'react-native';
 
-type Props = StackScreenProps<MainStackParamList, 'Login'>;
+type Props = StackScreenProps<MainStackParamList, 'Registration'>;
 
 const Registration = ({ navigation }: Props) => {
   const [fullName, setFullName] = useState('');
