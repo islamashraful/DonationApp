@@ -1,8 +1,13 @@
+import { loginUser } from '@/api/user';
 import Button from '@/components/Button';
 import Header from '@/components/Header';
 import Input from '@/components/Input';
 import { MainStackParamList } from '@/navigation/routes';
-import { horizontalScale, verticalScale } from '@/styles/scaling';
+import {
+  horizontalScale,
+  scaleFontSize,
+  verticalScale,
+} from '@/styles/scaling';
 import { StackScreenProps } from '@react-navigation/stack';
 import React, { useState } from 'react';
 import {
@@ -11,6 +16,7 @@ import {
   SafeAreaView,
   ScrollView,
   Pressable,
+  Text,
 } from 'react-native';
 
 type Props = StackScreenProps<MainStackParamList, 'Login'>;
@@ -18,6 +24,8 @@ type Props = StackScreenProps<MainStackParamList, 'Login'>;
 const Login = ({ navigation: { navigate } }: Props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
@@ -44,8 +52,25 @@ const Login = ({ navigation: { navigate } }: Props) => {
           />
         </View>
 
+        {error ? <Text style={styles.error}>{error}</Text> : null}
+
         <View style={styles.spacing}>
-          <Button title="Login" />
+          <Button
+            title="Login"
+            disabled={!email || !password}
+            loading={loading}
+            onPress={async () => {
+              setLoading(true);
+              const response = await loginUser(email, password);
+              setLoading(false);
+              if (!response.success) {
+                setError(response.error);
+              } else {
+                setError('');
+                navigate('Home');
+              }
+            }}
+          />
         </View>
 
         <Pressable
@@ -73,6 +98,12 @@ const styles = StyleSheet.create({
   },
   registrationBtn: {
     alignItems: 'center',
+  },
+  error: {
+    fontFamily: 'Inter',
+    fontSize: scaleFontSize(16),
+    color: '#ff0000',
+    marginBottom: verticalScale(7),
   },
 });
 

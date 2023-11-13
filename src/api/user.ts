@@ -26,3 +26,19 @@ export const createUser = async (
     };
   }
 };
+
+export const loginUser = async (email: string, password: string) => {
+  try {
+    const response = await auth().signInWithEmailAndPassword(email, password);
+    const token = await response.user.getIdToken();
+    return {
+      success: true,
+      token,
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      error: error?.message || 'Something went wrong with your request!',
+    };
+  }
+};
