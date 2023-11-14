@@ -5,6 +5,7 @@ import UserReducer, { UserState } from './reducers/user';
 import CategoriesReducer, { CategoriesState } from './reducers/categories';
 import DonationsReducer, { DonationsState } from './reducers/donations';
 import { logger } from 'redux-logger';
+import { ENABLE_DEV_TOOL_LOGGER } from '@/config/constants';
 
 export interface RootState {
   user: UserState;
@@ -27,10 +28,12 @@ const persistedReducer = persistReducer(
   rootReducer,
 );
 
+const middleware = ENABLE_DEV_TOOL_LOGGER ? [logger] : [];
+
 const store = configureStore({
   reducer: persistedReducer,
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware({ serializableCheck: false }).concat(logger),
+    getDefaultMiddleware({ serializableCheck: false }).concat(middleware),
 });
 
 export default store;
