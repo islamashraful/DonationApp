@@ -30,6 +30,8 @@ import {
 import SingleDonationItem from '@/components/SingleDonationItem';
 import { AppStackParamList } from '@/navigation/routes';
 import { StackScreenProps } from '@react-navigation/stack';
+import { resetToInitialState } from '@/redux/reducers/user';
+import { logout } from '@/api/user';
 
 type Props = StackScreenProps<AppStackParamList, 'Home'>;
 
@@ -86,11 +88,20 @@ const Home = ({ navigation: { navigate } }: Props) => {
               />
             </View>
           </View>
-          <Image
-            source={{ uri: user.profileImage }}
-            style={styles.image}
-            resizeMode="contain"
-          />
+          <View>
+            <Image
+              source={{ uri: user.profileImage }}
+              style={styles.image}
+              resizeMode="contain"
+            />
+            <Pressable
+              onPress={async () => {
+                disapatch(resetToInitialState());
+                await logout();
+              }}>
+              <Header title="Logout" type="small" color="#156cf7" />
+            </Pressable>
+          </View>
         </View>
         <View style={styles.search}>
           <Search />

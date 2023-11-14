@@ -39,7 +39,11 @@ export const loginUser = async (email: string, password: string) => {
   } catch (error: any) {
     return {
       success: false,
-      error: error?.message || 'Something went wrong with your request!',
+      error: 'Something went wrong with your request!',
     };
   }
+};
+
+export const logout = async () => {
+  await auth().signOut();
 };
