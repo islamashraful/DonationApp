@@ -26,7 +26,7 @@ type Props = StackScreenProps<AuthStackParamList, 'Login'>;
 const Login = ({ navigation: { navigate } }: Props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [error, setError] = useState<string | undefined>();
   const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
@@ -67,10 +67,12 @@ const Login = ({ navigation: { navigate } }: Props) => {
               setLoading(true);
               const response = await loginUser(email, password);
               setLoading(false);
-              if (!response.success || !response.data) {
+              if (!response.data) {
                 setError(response.error);
               } else {
-                dispatch(logIn(response.data));
+                dispatch(
+                  logIn({ userData: response.data, token: response.token }),
+                );
                 setError('');
               }
             }}
