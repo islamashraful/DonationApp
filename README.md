@@ -1,8 +1,18 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Donation App
 
-# Getting Started
+Donation App is a simple mobile application bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli). It showcases most of the use cases that any mobile app needs, like custom fonts, font icons, async storage, etc.
+The navigation system uses react-navigation, the most popular navigation system in the community. The authentication system is implemented with Firebase, and all of the data flow throughout the application uses redux. The overall application is using typescript.
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+<div align="center">
+   <img height="700" src="/.github/images/registration.png" />
+   <img height="700" src="/.github/images/login.png" />
+   <img height="700" src="/.github/images/home-screen.png" />
+   <img height="700" src="/.github/images/donation-details.png" />
+</div>
+
+## Let's Run the App!
+
+> **Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
 
 ## Step 1: Start the Metro Server
 
@@ -57,18 +67,9 @@ Now that you have successfully run the app, let's modify it.
 
 ## Congratulations! :tada:
 
-You've successfully run and modified your React Native App. :partying_face:
+You've successfully run and modified Donation App! :partying_face:
 
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
+# Official Guide
 
 To learn more about React Native, take a look at the following resources:
 
